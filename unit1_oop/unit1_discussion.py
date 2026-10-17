@@ -55,7 +55,7 @@ class Media:
 # Replace the pass statement with your implementation.
 
 
-class Game(Media):
+class VideoGame(Media):
     MEDIA_TYPE = "Video Game"
 
     def __init__(
@@ -92,14 +92,14 @@ def demonstrate_namespaces():
 
     # 2 Child Class Objects
     print("\nCreating child object `game1`...\n")
-    game1 = Game("Elden Ring", 2022, "Souls-like", "M", ["PC", "Xbox", "PS"])
+    game1 = VideoGame("Elden Ring", 2022, "Souls-like", "M", ["PC", "Xbox", "PS"])
     game1.about()
     print("\nCreating child object 2 `game2`...\n")
-    game2 = Game("The Division 2", 2019, "Looter Shooter", "M", ["PC", "PS"])
+    game2 = VideoGame("The Division 2", 2019, "Looter Shooter", "M", ["PC", "PS"])
     game2.about()
 
     print(
-        f"\nDisplaying child class variable (via Class):\n\tGame: MEDIA_TYPE: {Game.MEDIA_TYPE}"
+        f"\nDisplaying child class variable (via Class):\n\tGame: MEDIA_TYPE: {VideoGame.MEDIA_TYPE}"
     )
     print(
         f"\nDisplaying child class variable (via instance object):\n\tgame1: MEDIA_TYPE: {game1.MEDIA_TYPE}"
@@ -118,7 +118,7 @@ def demonstrate_namespaces():
         "\nNotice that the `game2` object has `review` attribute, which `game1` does not."
     )
 
-    print(f"\n`Game` Class Information:\n{Game.__dict__}")
+    print(f"\n`Game` Class Information:\n{VideoGame.__dict__}")
 
 
 # TODO 4:
@@ -200,7 +200,7 @@ def main():
     print("\nMedia Count: ", m1.get_media_count())
 
     print("\nTODO: Create and test your child object\n")
-    game1 = Game("Elden Ring", 2022, "Souls-like", "M", ["PC", "Xbox", "PS"])
+    game1 = VideoGame("Elden Ring", 2022, "Souls-like", "M", ["PC", "Xbox", "PS"])
     game1.about()
     print("\nMedia Count: ", game1.get_media_count())
     print(

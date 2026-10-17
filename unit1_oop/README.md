@@ -35,7 +35,7 @@ I have worked with Object Oriented Programming concepts in some of my previous p
 
 2. What challenges did you encounter, and how did you overcome them?
 
-As far as challenges, my biggest challenge when attempting to format the output in a pleasing way. Also, I had a moment of confusion when attempting to increment the class variable I set on my parent class. My goal was to set a class variable on the Parent class that would increment with each instance of the parent and child class. Initially, I was running `self.media_count += 1` in the Media class' `__init__`. However, in order to fix this, I needed to reference the class variable by doing `Media.media_count += 1`. Overall, this was a very simple fix.
+As far as challenges, my biggest challenge was attempting to format the output in a pleasing way. Also, I had a moment of confusion when attempting to increment the class variable I set on my parent class. My goal was to set a class variable on the Parent class that would increment with each instance of the parent and child class. Initially, I was running `self.media_count += 1` in the Media class' `__init__`. However, in order to fix this, I needed to reference the class variable by doing `Media.media_count += 1`. Overall, this was a very simple fix.
 
 3. Compare OOP to procedural programming.
 
