@@ -197,6 +197,73 @@ def main():
     print(f"  Dequeued item: {que2.dequeue()}")
     print(f"  Queue after dequeue: {que2.queue}")
 
+    # ===============================
+    # Real World Scenario
+    # ===============================
+    print("\n=== REAL WORLD SCENARIO ===\n")
+
+    print("""Student check into a kiosk to wait to receive their textbooks from the student
+resource center. They are served in a first-come first-served basis (i.e. FIFO).
+
+When doing inventory on the textbooks, the resource center staff entered a
+textbook ID into a stack, as the physical textbooks were stacked in the order
+they were added to the inventory. This means that the first textbooks added were
+at the bottom of the physical stack, as well as at the last item in the system
+inventory stack.
+    """)
+
+    textbook_inventory = Stack()
+    textbook_inventory.push("12345")
+    textbook_inventory.push("54321")
+    textbook_inventory.push("24680")
+    textbook_inventory.push("58392")
+
+    print(
+        "This is the textbook inventory at the start. Books will be removed from the top\n"
+        + "of the stack (right) first:"
+    )
+    print(f"  {textbook_inventory.data}")
+
+    student_queue = Queue()
+    student_queue.enqueue("Bob")
+    student_queue.enqueue("Jill")
+    student_queue.enqueue("Ben")
+    student_queue.enqueue("Judy")
+    student_queue.enqueue("Janice")
+
+    print(
+        "\nThis is the student queue at the start. Names will be removed from the front\n"
+        + "(left) of the line first, in the order that students checked in:"
+    )
+    print(f"  {student_queue.queue}")
+
+    print(
+        "\nAs each student is called in the order they were entered, they are provide a book,\n"
+        + "and the student and the book are removed from their respective collections.\n"
+    )
+
+    # while len(student_queue) and len(textbook_inventory):
+    while True:
+        nxt_student = student_queue.front()
+        nxt_book = textbook_inventory.peek()
+        if nxt_student and nxt_book:
+            print(
+                f"  {student_queue.dequeue()} has been assingned textbook {textbook_inventory.pop()}"
+            )
+        elif not nxt_student:
+            print("All students have been provided with a textbook")
+            break
+        else:
+            print("  \n******\nWARNING: No more textbooks in inventory\n******\n")
+            break
+
+    print("Textbooks after handling student queue")
+    print(f"  {textbook_inventory.data}")
+    print(
+        "Students after handling student queue (Janice is left because they ran out of textbooks)"
+    )
+    print(f"  {student_queue.queue}")
+
 
 if __name__ == "__main__":
     main()
