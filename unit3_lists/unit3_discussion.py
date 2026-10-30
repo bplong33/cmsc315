@@ -10,7 +10,7 @@ shift elements in memory and how different operations impact performance.
 """
 
 
-def insert_at(lst, index, value):
+def insert_at(lst: list, index, value):
     """
     TODO (Student):
     Insert a value into the list at the specified index.
@@ -22,10 +22,15 @@ def insert_at(lst, index, value):
     - Use comments to explain how insertion performance may vary depending on
       where the insertion occurs.
     """
-    pass
+    # Insert at provided index, pushing other list elements to the right by 1 index if they fall on or after the specified index
+    # Inserting closer to the front (index 0) will take more time than inserting into a later index.
+    # More values will need to be moved when inserting into the front
+    lst.insert(index, value)
+    # Notice that no value needs to be returned. Python passes a *reference* of the list to the
+    # function, so the original list is updated.
 
 
-def delete_at(lst, index):
+def delete_at(lst: list, index: int):
     """
     TODO (Student):
     Remove and return the value at the specified index.
@@ -36,10 +41,16 @@ def delete_at(lst, index):
     - Return None if the index is invalid.
     - Add comments explaining why index validation and safe deletion are important.
     """
-    pass
+    # Verify the index is within the valid range of the list.
+    # Failing to verify would result in out function throwing exceptions
+    # when provided with an invalid value
+    if 0 <= index < len(lst):
+        # pop accepts an index argument, removing the item and returning it
+        return lst.pop(index)
+    return None
 
 
-def search_value(lst, value):
+def search_value(lst: list, value):
     """
     TODO (Student):
     Search for a value within the list.
@@ -49,7 +60,15 @@ def search_value(lst, value):
     - Return -1 if the value is not found.
     - Add comments explaining why this is a linear search and why it scans sequentially.
     """
-    pass
+    # Use try except block because the list `.index(value)` will throw an exception if
+    # the provided value is not fount
+    try:
+        # The list is searched from index 0 to the last index, checking the value at each
+        # index to see if it matches the provided value
+        return lst.index(value)
+    except ValueError:
+        # return -1 if the value was not found in the list
+        return -1
 
 
 def main():
@@ -72,6 +91,25 @@ def main():
     print("\n=== INSERTION TESTS ===")
     print("TODO: Create a list and demonstrate insertions.")
 
+    # create original list
+    l1 = ["Sara", "Finley"]
+    # display list
+    print(f"\nOriginal List: {l1}")
+
+    # insert at the beginning (shifts all current values to the right)
+    insert_at(l1, 0, "Brandon")
+    print(f"List after insert 1: {l1}")
+
+    # insert in the middle (shift "Finley" to the right)
+    insert_at(l1, 2, "Oliver")
+    print(f"List after insert 2: {l1}")
+
+    # insert at the end (no shifts should occur, best case scenario for efficieny)
+    # Using an index matching the length of l1 ensures we place the value at the end, no matter the
+    # list size
+    insert_at(l1, len(l1), "Emmy")
+    print(f"List after insert 3: {l1}")
+
     # ===============================
     # TODO (Student): DELETION TESTS
     # ===============================
@@ -88,6 +126,21 @@ def main():
     print("\n=== DELETION TESTS ===")
     print("TODO: Demonstrate deletions from multiple positions.")
 
+    # display list
+    print(f"\nDisplay Current List: {l1}")
+
+    # delete from the beginning
+    delete_at(l1, 0)
+    print(f"List after deletion 1: {l1}")
+
+    # delete from the middle
+    delete_at(l1, 2)
+    print(f"List after deletion 2: {l1}")
+
+    # delete from the end
+    delete_at(l1, len(l1) - 1)
+    print(f"List after deletion 2: {l1}")
+
     # ===============================
     # TODO (Student): SEARCH TESTS
     # ===============================
@@ -100,6 +153,18 @@ def main():
 
     print("\n=== SEARCH TESTS ===")
     print("TODO: Demonstrate searching for values.")
+
+    # display list
+    print(f"\nDisplay Current List: {l1}")
+
+    # search for a value that we know exists
+    result_ind = search_value(l1, "Oliver")
+    print(f"Searching for 'Oliver' returns: {result_ind}")
+
+    # search for a value that does not exist
+    result_ind = search_value(l1, "Jeffrey")
+    print(f"Searching for 'Jeffrey' returns: {result_ind}")
+    print("  *'Jeffrey' does not exist in the list*")
 
     # ===============================
     # TODO (Student): EDGE CASES
@@ -117,7 +182,24 @@ def main():
     print("\n=== EDGE CASES ===")
     print("TODO: Demonstrate at least two edge cases.")
 
+    # Insert to an index greater than the list length
+    # display list
+    print("\n== Insert into index greater than list length ==\n")
+    print(f"Display Current List: {l1}")
+    print("Attempt inserting 'Zack' into index 10 when list length is 2")
+    insert_at(l1, 10, "Zack")
+    print(f"'Zack' added to end of list: {l1}")
+
+    # Detele at negative index
+    # display list
+    print("\n== Provide a negative index to the delete_at method ==\n")
+    print(f"Display Current List: {l1}")
+    del_return = delete_at(l1, -2)
+    print(
+        f"Delete from index -2 returns {del_return} because the index is out of the\n  valid range (0 <= i < len(list))"
+    )
 
 
 if __name__ == "__main__":
     main()
+
