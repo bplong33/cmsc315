@@ -164,7 +164,7 @@ def main():
     # search for a value that does not exist
     result_ind = search_value(l1, "Jeffrey")
     print(f"Searching for 'Jeffrey' returns: {result_ind}")
-    print("  *'Jeffrey' does not exist in the list*")
+    print("  \u2192 'Jeffrey' does not exist in the list")
 
     # ===============================
     # TODO (Student): EDGE CASES
@@ -188,7 +188,7 @@ def main():
     print(f"Display Current List: {l1}")
     print("Attempt inserting 'Zack' into index 10 when list length is 2")
     insert_at(l1, 10, "Zack")
-    print(f"'Zack' added to end of list: {l1}")
+    print(f"  \u2192 'Zack' added to end of list: {l1}")
 
     # Detele at negative index
     # display list
@@ -198,6 +198,116 @@ def main():
     print(
         f"Delete from index -2 returns {del_return} because the index is out of the\n  valid range (0 <= i < len(list))"
     )
+
+    # ===============================
+    # TODO (Student): REAL WORLD SCENARIO
+    # ===============================
+
+    print("\n=== REAL WORLD SCENARIO ===")
+    print("TODO: Create a real world scenario.")
+
+    # Create reusable function to display the SCRUM board
+    def display_scrum(lanes: dict[str, list[str]]):
+        for lane, lst in lanes.items():
+            print(f"  {lane}: {lst}")
+
+    # Represent a SCRUM Board's lanes
+    # Used a dictionary for simplified accessing, but the list in dict values will function the same
+    lanes = {"Backlog": [], "In Progress": [], "Under Review": [], "Done": []}
+
+    # Display current tickets
+    print(
+        "A basic SCRUM Board has 4 lanes (Backlog, In Progress, Under Review, and Done). All Lanes start off empty:"
+    )
+    display_scrum(lanes)
+
+    # Add 3 tickets to the backlog
+    insert_at(
+        lanes["Backlog"],
+        len(lanes["Backlog"]),
+        "Add API stubs for CRUD Operations [Pri: Low]",
+    )  # add to end of list
+    insert_at(
+        lanes["Backlog"],
+        0,
+        "Update package versions [Pri: High]",
+    )  # add to beginning of list
+    insert_at(
+        lanes["Backlog"],
+        1,
+        "Implement basic FastAPI routing [Pri: Medium]",
+    )  # add to middle of list
+
+    print("\nTickets have been added to the Backlog lane:")
+    display_scrum(lanes)
+
+    print(
+        "\nThe ticket at index 0 (high priority ticket) is worked first, so it is pulled into the In Progress lane"
+    )
+    # Find which index holds this ticket
+    ticket_ind = search_value(lanes["Backlog"], "Update package versions [Pri: High]")
+    print(f"  \u2192 Ticket is found at index: {ticket_ind}\n")
+    # Delete the value from backlog, returning it
+    val = delete_at(lanes["Backlog"], ticket_ind)
+    # Add the value to 'In Progress'
+    insert_at(lanes["In Progress"], 0, val)
+
+    print("SCRUM Board after update")
+    display_scrum(lanes)
+
+    print(
+        "\nThe following operations will be completed in the following order:\n  \u2192 Start Low-priority "
+        + "ticket\n  \u2192 Start Medium-priority ticket\n  \u2192 Move High and Medium Priority tickets to "
+        + "Under Review\n  \u2192 Move High-priority ticket to Done"
+    )
+    # "Add API stubs for CRUD Operations [Pri: Low]"
+    # "Implement basic FastAPI routing [Pri: Medium]",
+    # "Update package versions [Pri: High]",
+
+    # Find index, remove from current lane, and insert into next lane
+    ticket_ind = search_value(
+        lanes["Backlog"], "Add API stubs for CRUD Operations [Pri: Low]"
+    )
+    val = delete_at(lanes["Backlog"], ticket_ind)
+    insert_at(lanes["In Progress"], len(lanes["In Progress"]), val)  # insert at end
+
+    ticket_ind = search_value(
+        lanes["Backlog"], "Implement basic FastAPI routing [Pri: Medium]"
+    )
+    val = delete_at(lanes["Backlog"], ticket_ind)
+    insert_at(lanes["In Progress"], 1, val)  # insert in between high and low pri ticket
+
+    # Display SCRUM board after all tickets have been moved out of backlog
+    print("\nSCRUM Board after first 2 updates:")
+    display_scrum(lanes)
+
+    # Move high and medium priority tickets to under review
+    ticket_ind = search_value(
+        lanes["In Progress"], "Implement basic FastAPI routing [Pri: Medium]"
+    )
+    val = delete_at(lanes["In Progress"], ticket_ind)
+    insert_at(lanes["Under Review"], len(lanes["Under Review"]), val)  # insert at end
+
+    ticket_ind = search_value(
+        lanes["In Progress"], "Update package versions [Pri: High]"
+    )
+    val = delete_at(lanes["In Progress"], ticket_ind)
+    insert_at(lanes["Under Review"], 0, val)  # insert at beginning
+
+    # Display SCRUM board after 2 tickets have been moved to under review
+    print("\nSCRUM Board after third update:")
+    display_scrum(lanes)
+
+    # Move high priority ticket to Done
+    ticket_ind = search_value(
+        lanes["Under Review"], "Update package versions [Pri: High]"
+    )
+    val = delete_at(lanes["Under Review"], ticket_ind)
+    insert_at(lanes["Done"], 0, val)  # insert at beginning
+
+    # Display SCRUM board after all operations have been performed
+    print("\nSCRUM Board final state:")
+    display_scrum(lanes)
 
 
 if __name__ == "__main__":
