@@ -35,11 +35,11 @@ I have known about the Tree data type, but have not had many opportunities to us
 
 When testing the `search`/`_search_recursive` methods, I ran into a small "issue" of sorts. I was attempting to search for 2 values from the list and 2 values that are not in the list. All values were returning `True`, meaning my function was (I thought) returning the wrong values. I spent some time adding in some logging to help me determine where the error might be.
 
-![Debug Logging](./img/unit4 discussion debugging.png)
+<img width="727" height="411" alt="unit4 discussion debugging" src="https://github.com/user-attachments/assets/730eec28-9cb1-41bd-a913-f78071669efa" />
 
 After adding this message, I noticed that the output said it was always searching for 4. I checked back to where I was calling the method. I had recently refactored this bit of code to loop through a list of values to search rather than have the same code written 3 times. While doing this, I had forgotten to change the value passed into the search to the variable.
 
-![Error Location](./img/unit4 discussion err location.png)
+<img width="549" height="325" alt="unit4 discussion err location" src="https://github.com/user-attachments/assets/7f33b4d6-ff8e-45c1-aca2-78a37407d848" />
 
 This ended up being an easy fix. However, it shows how easily small mistakes can throw you off and make you second guess your code. It can be very helpful in this situation to define unit tests that test new features and regression test old features to ensure existing code is not broken by recent changes.
 
