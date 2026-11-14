@@ -256,6 +256,47 @@ def main():
     print("\n=== REAL WORLD SCENARIO ===")
     print("TODO: Create a real world scenario.")
 
+    # lets say we have a large database of hosts that have been identified with vulnerabilities
+    vulnerable_hosts = [
+        "ACCT-LT-0412",
+        "ACCT-WS-0104",
+        "DEV-LT-0881",
+        "DEV-LT-0912",
+        "DEV-WS-0301",
+        "DEV-WS-0302",
+        "EXEC-LT-0014",
+        "EXEC-LT-0019",
+        "HR-LT-0205",
+        "HR-WS-0118",
+        "IT-LT-0001",
+        "IT-LT-0008",
+        "IT-WS-0003",
+        "LEGAL-LT-0501",
+        "MKTG-LT-0610",
+        "MKTG-WS-0214",
+        "OPS-LT-0722",
+        "OPS-WS-0409",
+        "SALES-LT-0801",
+        "SALES-LT-0815",
+        "SALES-LT-0833",
+        "SUPP-WS-0901",
+        "SUPP-WS-0902",
+        "SUPP-WS-0905",
+        "SUPP-WS-0910"
+    ]
+
+    # A department head may want to verify if hosts in his department are on the list so
+    # he can remediate the vulnerabilities.
+    dev_search_list = ["DEV-LT-0881", "DEV-WS-0303", "IT-WS-0003"]
+    # the list of Dev Dept hosts can be used to search the list of vulnerable hosts
+    for host in dev_search_list:
+        print(f"\nSearching Vulnerable Hosts for {host}...")
+        ind, elapsed = time_search(vulnerable_hosts, host, linear_search)
+        print(f'  \u2192 Linear Search took {elapsed} milliseconds and returned {ind}.')
+        ind, elapsed = time_search(vulnerable_hosts, host, binary_search)
+        print(f'  \u2192 Binary Search took {elapsed} milliseconds and returned {ind}.')
+
+
 if __name__ == "__main__":
     main()
 
